@@ -129,3 +129,48 @@ export const contentApi = {
     api.put<{ data: Animal }>(`/admin/content/animals/${id}`, data),
   deleteAnimal: (id: number) => api.delete(`/admin/content/animals/${id}`),
 }
+
+// Stats API Types
+export interface DashboardStats {
+  userStats: {
+    totalUsers: number
+    totalChildren: number
+    activeToday: number
+    totalStarsEarned: number
+    totalLessonsCompleted: number
+    averageStreak: string
+  }
+  contentStats: {
+    letters: number
+    numbers: number
+    animals: number
+    totalProgress: number
+    todayProgress: number
+  }
+}
+
+export interface RecentActivity {
+  childName: string
+  contentType: string
+  contentId: string
+  starsEarned: number
+  completed: boolean
+  time: string
+  createdAt: string
+}
+
+export interface TopLearner {
+  name: string
+  stars: number
+  level: number
+  streak: number
+  levelTitle: string
+}
+
+// Stats API
+export const statsApi = {
+  getDashboard: () => api.get<{ data: DashboardStats }>('/admin/stats/dashboard'),
+  getUserStats: () => api.get<{ data: any }>('/admin/stats/users'),
+  getRecentActivity: () => api.get<{ data: RecentActivity[] }>('/admin/stats/activity'),
+  getTopLearners: () => api.get<{ data: TopLearner[] }>('/admin/stats/top-learners'),
+}
